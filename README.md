@@ -1,4 +1,4 @@
-# cf_yolo26s_3
+# cf-yolo26s-3
 
 YOLO26s-seg phân đoạn bệnh lá cà phê, 4 lớp: cercospora, miner, phoma, rust.
 Cấu hình giống hệt run new2 (https://github.com/banghuynnh2444/cf_yolo26_new2), chỉ khác tập valid (366 ảnh, thêm 55 ảnh nền).
