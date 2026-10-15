@@ -1,0 +1,16 @@
+# Dataset - share separately
+BRACOL_SEGMENTATION/
+# Generated train list with absolute paths; recreated by train_miner.py
+miner_run_data/
+# Pretrained / AMP-check weights downloaded by Ultralytics
+/*.pt
+/weights/
+# Only best.pt is kept
+runs/**/last.pt
+# Logs
+train_log*.txt
+train_err.txt
+__pycache__/
+
+# Eval log
+eval_log.txt
