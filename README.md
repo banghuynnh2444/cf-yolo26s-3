@@ -52,3 +52,6 @@ Số liệu đầy đủ: `runs/y26s_seg_miner/eval_summary.csv`, bảng `report
 - Cercospora recall trên test thấp (~0.46).
 - Phoma precision trên test ~0.55. Ngưỡng 0.45 tăng precision lên ~0.60 nhưng mAP giảm.
 - Rust mask mAP50-95 ~0.35, vết bệnh nhỏ.
+
+## Run khác trong repo
+- `cf_yolo26-4/`: YOLO26s-seg ưu tiên cercospora trên BRACOL gốc.
