@@ -1,0 +1,6 @@
+"""Train tiep tu last.pt."""
+from ultralytics import YOLO
+from train import ROOT
+
+if __name__ == "__main__":
+    YOLO(str(ROOT / "runs" / "y26s_seg" / "weights" / "last.pt")).train(resume=True)
