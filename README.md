@@ -58,3 +58,4 @@ Số liệu đầy đủ: `runs/y26s_seg_miner/eval_summary.csv`, bảng `report
 - `cf_yolo26_5/`: YOLO26s-seg không ưu tiên lớp, ngưỡng phoma 0.45.
 - `tach-lop/tach-miner/`: YOLO26s-seg 1 lớp miner.
 - `tach-lop/tach-phoma/`: YOLO26s-seg 1 lớp phoma.
+- `tach-lop/tach-rust/`: YOLO26s-seg 1 lớp rust.
