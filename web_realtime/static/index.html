@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quét bệnh lá cà phê</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">
+    <span class="logo">☕</span>
+    <div>
+      <h1>Quét bệnh lá cà phê</h1>
+      <p class="sub">YOLO26-seg · phân đoạn 4 bệnh: Cercospora, sâu vẽ bùa, Phoma, gỉ sắt</p>
+    </div>
+  </div>
+  <div class="model-box">
+    <label>Model
+      <select id="modelSelect"></select>
+    </label>
+    <span id="deviceBadge" class="badge">đang tải…</span>
+  </div>
+</header>
+
+<main>
+  <section class="left">
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-src="camera">📷 Camera</button>
+      <button class="tab" data-src="video">🎞️ Video</button>
+      <button class="tab" data-src="image">🖼️ Ảnh</button>
+    </div>
+
+    <div class="src-bar" id="bar-camera">
+      <select id="camSelect"><option value="">Camera mặc định</option></select>
+      <button id="camStart" class="primary">Bắt đầu quét</button>
+      <button id="camStop">Dừng</button>
+    </div>
+    <div class="src-bar hidden" id="bar-video">
+      <input type="file" id="videoFile" accept="video/*">
+      <button id="vidStart" class="primary">Quét video</button>
+      <button id="vidStop">Dừng</button>
+    </div>
+    <div class="src-bar hidden" id="bar-image">
+      <input type="file" id="imageFiles" accept="image/*" multiple>
+      <span class="hint">Chọn một hoặc nhiều ảnh, hoặc kéo thả vào khung bên dưới</span>
+    </div>
+
+    <div class="stage" id="stage">
+      <canvas id="view"></canvas>
+      <div class="placeholder" id="placeholder">Chọn nguồn ảnh: camera, video hoặc tải ảnh lên</div>
+      <div class="hud" id="hud"></div>
+    </div>
+
+    <div class="gallery hidden" id="gallery"></div>
+
+    <div class="actions">
+      <button id="snap">💾 Lưu ảnh kết quả</button>
+      <button id="csv">📄 Xuất CSV</button>
+      <button id="clearLog">Xóa nhật ký</button>
+    </div>
+
+    <details class="settings" open>
+      <summary>Cài đặt</summary>
+      <div class="grid">
+        <label>Kích thước suy luận (imgsz)
+          <select id="imgsz">
+            <option>480</option><option selected>640</option><option>800</option>
+            <option>1024</option><option>1280</option>
+          </select>
+        </label>
+        <label>Độ mờ mask <input type="range" id="alpha" min="0" max="0.9" step="0.05" value="0.45"></label>
+        <label class="chk"><input type="checkbox" id="showMask" checked> Mask</label>
+        <label class="chk"><input type="checkbox" id="showBox" checked> Khung</label>
+        <label class="chk"><input type="checkbox" id="showLabel" checked> Nhãn</label>
+        <label class="chk"><input type="checkbox" id="leafEst" checked> Ước lượng diện tích lá</label>
+      </div>
+      <p class="hint">Camera/video nên để 640 cho mượt; ảnh tĩnh dùng 1024 (đúng như lúc train) cho chính xác nhất.</p>
+      <h4>Ngưỡng tin cậy theo lớp</h4>
+      <div id="confs" class="confs"></div>
+    </details>
+  </section>
+
+  <section class="right">
+    <div class="cards">
+      <div class="card"><div class="k">FPS</div><div class="v" id="fps">–</div></div>
+      <div class="card"><div class="k">Suy luận</div><div class="v" id="infer">–</div></div>
+      <div class="card"><div class="k">Độ trễ</div><div class="v" id="lat">–</div></div>
+      <div class="card"><div class="k">Số vết bệnh</div><div class="v" id="total">–</div></div>
+    </div>
+
+    <div class="verdict" id="verdict">
+      <div class="vt">Chưa có kết quả</div>
+      <div class="vs"></div>
+    </div>
+
+    <div class="panel">
+      <h3>Thống kê theo bệnh</h3>
+      <table class="stats">
+        <thead><tr><th>Bệnh</th><th>Số vết</th><th>% khung</th><th>% lá</th><th>Conf max</th><th>Conf TB</th></tr></thead>
+        <tbody id="statsBody"></tbody>
+        <tfoot id="statsFoot"></tfoot>
+      </table>
+      <p class="hint" id="leafNote"></p>
+    </div>
+
+    <div class="panel" id="sparkPanel">
+      <h3>Diễn biến số vết (60 khung gần nhất)</h3>
+      <canvas id="spark" height="110"></canvas>
+    </div>
+
+    <div class="panel">
+      <h3>Danh sách vết bệnh <span id="detCount" class="muted"></span></h3>
+      <div class="detlist" id="detList"></div>
+    </div>
+
+    <div class="panel">
+      <h3>Nhật ký <span id="logCount" class="muted"></span></h3>
+      <div class="log" id="log"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Kết quả chỉ mang tính hỗ trợ. "% lá" dùng ước lượng vùng lá theo màu, chính xác nhất với ảnh chụp một lá trên nền đơn sắc.
+  Mức độ bệnh theo thang BRACOL: rất nhẹ ≤5%, nhẹ ≤10%, nặng ≤15%, rất nặng &gt;15% diện tích lá.
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>

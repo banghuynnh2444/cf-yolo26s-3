@@ -60,3 +60,6 @@ Số liệu đầy đủ: `runs/y26s_seg_miner/eval_summary.csv`, bảng `report
 - `tach-lop/tach-phoma/`: YOLO26s-seg 1 lớp phoma.
 - `tach-lop/tach-rust/`: YOLO26s-seg 1 lớp rust.
 - `tach-lop/tach-cercospora/`: YOLO26s-seg 1 lớp cercospora.
+
+## Web quét bệnh realtime
+`web_realtime/`: web chạy best.pt này trên camera, video, ảnh. Xem `web_realtime/README.md`.

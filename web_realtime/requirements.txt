@@ -1,0 +1,5 @@
+# Đã có sẵn trong môi trường train: ultralytics, torch (bản CUDA), opencv-python, numpy
+fastapi>=0.110
+uvicorn[standard]>=0.29
+python-multipart>=0.0.9
+cryptography>=42   # chỉ cần khi chạy --https
